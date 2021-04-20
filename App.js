@@ -1,67 +1,54 @@
-import { StatusBar } from 'expo-status-bar';
 import React, { useState } from 'react';
-import { StyleSheet, Text, View, Button } from 'react-native';
+import { StyleSheet, Text, View, TextInput } from 'react-native';
 
 export default function App() {
-
-  const [getText, setText] = useState("0")
-
-  const buttonClick = (txt) => {
-    console.log(txt)
-    setText(getText + txt)
-  }
-
   return (
     <View style={styles.container}>
-      <Text style={{ fontSize: 30, paddingBottom: 100 }}>Guess a Number Game</Text>
-      <Text style={{ fontSize: 50, paddingBottom: 50 }}>{getText}</Text>
-      <View style={{ flexDirection: 'row' }}>
-        <View style={styles.buttonContainer}>
-          <Button title="1" color="green" onPress={buttonClick.bind(this, 1)} />
+      <TextInput
+        style={styles.input}
+        placeholder="Original Price"
+        keyboardType={'decimal-pad'}
+      />
+      <TextInput
+        style={styles.input}
+        placeholder="Discount %"
+        maxLength={3}
+        keyboardType={'decimal-pad'}
+      />
+      <View style={styles.calculationContainer}>
+        <View style={styles.textContainer}>
+          <Text style={styles.text}>You Save: </Text>
+          <Text style={styles.text}>{0}</Text>
         </View>
-        <View style={styles.buttonContainer}>
-          <Button title="2" color="red" onPress={buttonClick.bind(this, 2)} />
-        </View>
-        <View style={styles.buttonContainer}>
-          <Button title="3" color="blue" onPress={buttonClick.bind(this, 3)} />
-        </View>
-      </View>
-      <View style={{ flexDirection: 'row' }}>
-        <View style={styles.buttonContainer}>
-          <Button title="4" color="green" onPress={buttonClick.bind(this, 1)} />
-        </View>
-        <View style={styles.buttonContainer}>
-          <Button title="5" color="red" onPress={buttonClick.bind(this, 2)} />
-        </View>
-        <View style={styles.buttonContainer}>
-          <Button title="6" color="blue" onPress={buttonClick.bind(this, 3)} />
+        <View style={styles.textContainer}>
+          <Text style={styles.text}>Final Price: </Text>
+          <Text style={styles.text}>{0}</Text>
         </View>
       </View>
-      <View style={{ flexDirection: 'row' }}>
-        <View style={styles.buttonContainer}>
-          <Button title="7" color="green" onPress={buttonClick.bind(this, 1)} />
-        </View>
-        <View style={styles.buttonContainer}>
-          <Button title="8" color="red" onPress={buttonClick.bind(this, 2)} />
-        </View>
-        <View style={styles.buttonContainer}>
-          <Button title="9" color="blue" onPress={buttonClick.bind(this, 3)} />
-        </View>
-      </View>
-      <StatusBar style="auto" />
     </View>
   );
 }
 
 const styles = StyleSheet.create({
-  buttonContainer: {
-    width: '30%',
-    padding: 10
+  calculationContainer: {
+    paddingTop: 30, height: 100, width: "70%", justifyContent: 'space-between'
+  },
+  textContainer: { flexDirection: "row", justifyContent: 'space-between' },
+  input: {
+    borderColor: 'grey',
+    borderBottomWidth: 2,
+    width: "80%",
+    height: 50,
+    fontSize: 20
+  },
+  text: {
+    fontSize: 20
   },
   container: {
     flex: 1,
     backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
+    justifyContent: 'flex-start',
+    paddingTop: 50,
+    paddingLeft: 50,
   },
 });
