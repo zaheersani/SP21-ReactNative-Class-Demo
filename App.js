@@ -2,18 +2,25 @@ import React, { useState } from 'react';
 import { StyleSheet, Text, View, TextInput } from 'react-native';
 
 export default function App() {
+  const [getPrice, setPrice] = useState();
+  const [getDiscount, setDiscount] = useState();
+
   return (
     <View style={styles.container}>
       <TextInput
         style={styles.input}
         placeholder="Original Price"
         keyboardType={'decimal-pad'}
+        onChangeText={(text) => setPrice(text)}
+        value={getPrice}
       />
       <TextInput
         style={styles.input}
         placeholder="Discount %"
         maxLength={3}
         keyboardType={'decimal-pad'}
+        onChangeText={(text) => setDiscount(text)}
+        value={getDiscount}
       />
       <View style={styles.calculationContainer}>
         <View style={styles.textContainer}>
