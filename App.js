@@ -1,17 +1,18 @@
 import React, { useState, useEffect } from 'react';
 import { StyleSheet, Text, View, TextInput } from 'react-native';
 
+import Header from './components/Header.js';
+
 export default function App() {
   const [getPrice, setPrice] = useState();
   const [getDiscount, setDiscount] = useState();
   const [getSaveValue, setSaveValue] = useState(0);
   const [getFinalPrice, setFinalPrice] = useState(0);
 
-  var save = 50
   useEffect(() => {
     if (getPrice != undefined && getDiscount != undefined) {
       console.log(`Price: ${getPrice}, Discount: ${getDiscount}`)
-      save = getDiscount / 100 * getPrice;
+      const save = getDiscount / 100 * getPrice;
       setSaveValue(save);
       const discountedPrice = getPrice - save;
       setFinalPrice(discountedPrice);
@@ -25,7 +26,7 @@ export default function App() {
 
   return (
     <View>
-      <Header />
+      <Header title="Discount Calculator" />
       <View style={styles.container}>
         <TextInput
           style={styles.input}
@@ -33,7 +34,7 @@ export default function App() {
           maxLength={15}
           keyboardType={'decimal-pad'}
           onChangeText={(text) => {
-            if (!isNaN(text)) {
+            if (isValidInput(text)) {
               setPrice(text);
             }
           }}
@@ -98,27 +99,4 @@ const styles = StyleSheet.create({
     paddingTop: 30,
     paddingLeft: 50,
   },
-});
-
-const Header = () => {
-  return (
-    <View style={headerStyle.container}>
-      <Text style={headerStyle.title}>Discount Calculator</Text>
-    </View>
-  )
-}
-
-const headerStyle = StyleSheet.create({
-  container: {
-    backgroundColor: 'purple',
-    justifyContent: 'center',
-    alignItems: 'center',
-    height: 90,
-    elevation: 5
-  },
-  title: {
-    color: 'white',
-    fontSize: 24,
-    paddingTop: 30,
-  }
 });
