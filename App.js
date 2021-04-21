@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { StyleSheet, Text, View, TextInput } from 'react-native';
 
-import Header from './components/Header.js';
+import Header from './components/Header';
 
 export default function App() {
   const [getPrice, setPrice] = useState();
@@ -20,8 +20,8 @@ export default function App() {
     }
   })
 
-  const isValidInput = (text) => {
-    return !isNaN(text) && text >= 0 && text <= 100
+  const isValidInput = (text, min, max = text) => {
+    return !isNaN(text) && text >= min && text <= max
   }
 
   return (
@@ -31,10 +31,10 @@ export default function App() {
         <TextInput
           style={styles.input}
           placeholder="Original Price"
-          maxLength={15}
+          maxLength={10}
           keyboardType={'decimal-pad'}
           onChangeText={(text) => {
-            if (isValidInput(text)) {
+            if (isValidInput(text, 0)) {
               setPrice(text);
             }
           }}
@@ -46,7 +46,7 @@ export default function App() {
           maxLength={3}
           keyboardType={'decimal-pad'}
           onChangeText={(text) => {
-            if (isValidInput(text)) {
+            if (isValidInput(text, 0, 100)) {
               setDiscount(text)
             }
           }}
@@ -93,7 +93,6 @@ const styles = StyleSheet.create({
     color: "white"
   },
   container: {
-    flex: 1,
     backgroundColor: '#fff',
     justifyContent: 'flex-start',
     paddingTop: 30,
