@@ -1,9 +1,19 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { StyleSheet, Text, View, TextInput } from 'react-native';
 
 export default function App() {
   const [getPrice, setPrice] = useState();
   const [getDiscount, setDiscount] = useState();
+
+  useEffect(() => {
+    const price = getPrice
+    const discount = getDiscount
+    if (price != undefined && discount != undefined) {
+      save = discount / 100 * price;
+      finalPrice = price - save;
+      console.log(`You Save: ${save}, Final Price: ${finalPrice}`);
+    }
+  });
 
   return (
     <View style={styles.container}>
